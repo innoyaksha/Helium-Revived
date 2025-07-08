@@ -3,10 +3,7 @@
   "private": true,
   "version": "0.4.1",
   "main": "background.js",
-  "author": {
-    "name": "mtrstatic",
-    "email": "your-email@example.com"
-  },
+  "author": "innoyaksha",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
