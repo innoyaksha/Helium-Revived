@@ -1,0 +1,99 @@
+name: Monthly Build and Release
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # Runs at 00:00 on the 1st day of every month
+
+jobs:
+  build_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Specify your desired Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run dist
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-build
+          path: dist/ # Assuming 'dist' is your build output directory
+
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Specify your desired Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run dist
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-build
+          path: dist/ # Assuming 'dist' is your build output directory
+
+  create_release:
+    needs: [build_linux, build_windows] # Depends on successful completion of both build jobs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-build
+          path: artifacts/linux-build
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: windows-build
+          path: artifacts/windows-build
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}-${{ github.sha }} # Example tag name
+          release_name: Monthly Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Linux Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/linux-build/* # Path to your Linux build artifact(s)
+          asset_name: linux-build.zip # Example asset name
+          asset_content_type: application/zip
+
+      - name: Upload Windows Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/windows-build/* # Path to your Windows build artifact(s)
+          asset_name: windows-build.zip # Example asset name
+          asset_content_type: application/zip
