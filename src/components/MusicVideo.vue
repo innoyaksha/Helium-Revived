@@ -610,13 +610,13 @@
                     display: flex;
                     flex-direction: column;
                     text-align: right;
-                    transform: translate(-10px);
                     opacity: 0;
-                    animation: video-quality-in 0.1s forwards;
                     @keyframes video-quality-in {
                         0%{transform: translate(-5px);}
                         100%{transform: translate(0px);opacity: 1;}
                     }
+                    animation: video-quality-in 0.1s forwards;
+                    transform: translate(-10px);
                     .quality-title{
                         font: 10px Bender-Bold;
                         color: rgba(255, 255, 255, 0.8);
