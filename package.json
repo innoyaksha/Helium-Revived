@@ -1,7 +1,7 @@
 {
   "name": "heliummusic",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "background.js",
   "author": "mtrstatic",
   "scripts": {
@@ -55,7 +55,11 @@
       "allowToChangeInstallationDirectory": true
     },
     "mac": {
-      "category": ""
+      "category": "",
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "win": {
       "icon": "./src/assets/icon/icon.ico",
@@ -66,7 +70,12 @@
       ],
       "verifyUpdateCodeSignature": false
     },
-    "linux": {},
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
     "publish": [
       {
         "provider": "github",
