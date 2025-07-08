@@ -43,13 +43,12 @@
         z-index: -1;
         top: 0;
         left: 0;
-        animation: black-clear 0.6s 1.7s cubic-bezier(.24,1,.48,.98) forwards;
         @keyframes black-clear {
             0%{top: 0;}
             100%{top: 100%;}
         }
+        animation: black-clear 0.6s 1.7s cubic-bezier(.24,1,.48,.98) forwards;
     }
-    animation: black-back-twinkle 0.2s 0.3s linear forwards;
     @keyframes black-back-twinkle {
         0%{opacity: 1;}
         50%{opacity: 1;}
@@ -57,6 +56,7 @@
         90%{opacity: 0;}
         100%{opacity: 1;}
     }
+    animation: black-back-twinkle 0.2s 0.3s linear forwards;
     .white-border{
         width: 99%;
         height: 99%;

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.4.1",
   "main": "background.js",
-  "author": "mtrstatic",
+  "author": "innoyaksha",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

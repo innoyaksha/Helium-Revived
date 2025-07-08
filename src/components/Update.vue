@@ -228,16 +228,17 @@
                             left: -101%;
                             background-color: rgba(255, 255, 255, 0.95);
                             z-index: -1;
-                            animation: version-back 0.6s 1.5s cubic-bezier(.5,0,.15,1) forwards;
                             @keyframes version-back {
                                 0%{left: -101%;}
                                 100%{left: 0%;}
                             }
+                            animation: version-back 0.6s 1.5s cubic-bezier(.5,0,.15,1) forwards;
                         }
-                        animation: version 0.3s 1.5s cubic-bezier(.5,0,.15,1) forwards;
                         @keyframes version {
                             0%{opacity: 0;}
                             100%{opacity: 1;}
+                        }
+                        animation: version 0.3s 1.5s cubic-bezier(.5,0,.15,1) forwards;
                         }
                     }
                 }
